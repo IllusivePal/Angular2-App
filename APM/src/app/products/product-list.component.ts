@@ -16,12 +16,16 @@ export class ProductListComponent implements OnInit{
     imageWidth:number = 50;
     imageMargin:number = 2;
     showImage:boolean = false;
-    listFilter:string;
+    listFilter:string="cart";
     products:IProduct[];
-
+    errorMessage:string;
+    
     ngOnInit():void{
         console.log('In onInit');
-        this.products = this._productService.getProducts();
+        //this.products = this._productService.getProducts();
+        this._productService.getProducts()
+                        .subscribe(products => this.products = products, 
+                         error => this.errorMessage = <any>error);
     }
     toggleImage(): void
     {

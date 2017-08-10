@@ -17,10 +17,14 @@ var ProductListComponent = (function () {
         this.imageWidth = 50;
         this.imageMargin = 2;
         this.showImage = false;
+        this.listFilter = "cart";
     }
     ProductListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log('In onInit');
-        this.products = this._productService.getProducts();
+        //this.products = this._productService.getProducts();
+        this._productService.getProducts()
+            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
     };
     ProductListComponent.prototype.toggleImage = function () {
         this.showImage = !this.showImage;
