@@ -17,7 +17,6 @@ var ProductListComponent = (function () {
         this.imageWidth = 50;
         this.imageMargin = 2;
         this.showImage = false;
-        this.listFilter = "cart";
     }
     ProductListComponent.prototype.ngOnInit = function () {
         var _this = this;
