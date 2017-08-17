@@ -9,6 +9,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
+var loading_module_1 = require("./loading/loading.module");
 var product_module_1 = require("./products/product.module");
 var app_component_1 = require("./app.component");
 var welcome_component_1 = require("./home/welcome.component");
@@ -27,6 +28,7 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule,
             http_1.HttpModule,
+            loading_module_1.LoadingModule,
             product_module_1.ProductModule,
             router_1.RouterModule.forRoot(appRoute)],
         declarations: [app_component_1.AppComponent,

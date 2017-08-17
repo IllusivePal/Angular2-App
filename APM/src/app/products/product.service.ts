@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ProductService{
     private _productUrl = 'api/products/products.json';
+    public testVar:boolean=false;
     constructor(private _http: Http){}
     getProducts():Observable<IProduct[]>
     {
@@ -23,6 +24,11 @@ export class ProductService{
     handleError(error:Response){
         console.log("ERROR");
         return Observable.throw(error.json().error || 'Server Error');
+    }
+
+    getShowButton()
+    {
+       this.testVar = true;
     }
 
 }
