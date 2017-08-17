@@ -18,6 +18,7 @@ var ProductService = (function () {
     function ProductService(_http) {
         this._http = _http;
         this._productUrl = 'api/products/products.json';
+        this.testVar = false;
     }
     ProductService.prototype.getProducts = function () {
         return this._http.get(this._productUrl)
@@ -30,6 +31,9 @@ var ProductService = (function () {
     ProductService.prototype.handleError = function (error) {
         console.log("ERROR");
         return Observable_1.Observable.throw(error.json().error || 'Server Error');
+    };
+    ProductService.prototype.getShowButton = function () {
+        this.testVar = true;
     };
     return ProductService;
 }());

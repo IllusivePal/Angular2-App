@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { HttpModule} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule,Route } from '@angular/router';
+import {LoadingModule} from './loading/loading.module';
 import {ProductModule} from  './products/product.module';
 import {CanActivate} from '@angular/router/src';
 
 
 import { AppComponent }  from './app.component';
 import {WelcomeComponent} from './home/welcome.component';
+
 
 // Setting of Routes
 const appRoute= [
@@ -21,6 +23,7 @@ const appRoute= [
 @NgModule({
   imports: [ BrowserModule
             ,HttpModule
+            ,LoadingModule
             ,ProductModule
             ,RouterModule.forRoot(appRoute)],
   declarations: [ AppComponent

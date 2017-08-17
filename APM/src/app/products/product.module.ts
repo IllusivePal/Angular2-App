@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import {CommonModule} from '@angular/common';
-import { FormsModule} from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
 import { RouterModule,Route } from '@angular/router';
+import {LoadingModule} from '../loading/loading.module';
 import {ProductListComponent} from './product-list.component';
 import {ProductDetailComponent} from './product-detail.component'
 import {ProductFilterPipe} from './product-filter.pipe';
-import {StarComponent} from '../shared/star.component';
 import {ProductGuardService} from './product-guard.service';
 import {ProductService} from './product.service';
 
@@ -20,14 +19,13 @@ const appRoute= [
 
 @NgModule({
     imports:[
-        CommonModule,
-        FormsModule,
+        SharedModule,
+        LoadingModule,
         RouterModule.forChild(appRoute)
-    ],
+    ], 
     declarations: [
         ProductListComponent,
         ProductDetailComponent,
-        StarComponent,
         ProductFilterPipe
 
     ],
