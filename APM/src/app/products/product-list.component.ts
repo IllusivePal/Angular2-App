@@ -1,6 +1,8 @@
-import {Component,OnInit} from '@angular/core';
+import {Component,OnInit,OnDestroy} from '@angular/core';
 import {IProduct} from './product';
 import {ProductService} from './product.service';
+import {LoadingService} from '../shared/loading.service';
+import {Subscription} from 'rxjs/Subscription'
 @Component({
     selector: 'pm-products',
     moduleId: module.id,
@@ -9,7 +11,7 @@ import {ProductService} from './product.service';
 })
 export class ProductListComponent implements OnInit{
    
-    constructor(private _productService: ProductService){
+    constructor(private _productService: ProductService,private _loadServ:LoadingService){
 
     }
     pageTitle:string = 'Product List';
@@ -19,6 +21,8 @@ export class ProductListComponent implements OnInit{
     listFilter:string;
     products:IProduct[];
     errorMessage:string;
+    private _subscription: Subscription;
+    private _loadStat: boolean;
     
     ngOnInit():void{
         console.log('In onInit');
@@ -26,6 +30,12 @@ export class ProductListComponent implements OnInit{
         this._productService.getProducts()
                         .subscribe(products => this.products = products, 
                          error => this.errorMessage = <any>error);
+        this._subscription = this._loadServ.loadingProperty$.subscribe(p => {
+            this._loadStat = p;
+        });
+    }
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
     }
     toggleImage(): void
     {
@@ -34,5 +44,13 @@ export class ProductListComponent implements OnInit{
     onRatingClicked(message:string) :void
     {
         this.pageTitle = 'Product List: ' + message;
+    }
+
+    onGetClick() {
+        this._loadServ.loadingProperty = true;
+        setTimeout(()=>{
+            this._loadServ.loadingProperty = false;
+        },2000);
+        
     }
 }

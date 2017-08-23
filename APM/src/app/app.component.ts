@@ -1,5 +1,8 @@
-import {Component,OnInit,ViewChild} from '@angular/core';
+import {Component,OnInit,ViewChild,OnDestroy} from '@angular/core';
 import {ProductService} from './products/product.service';
+import {LoadingService} from './shared/loading.service'
+import {Subscription} from 'rxjs/Subscription'
+
 @Component({
     selector: 'pm-app',
     template:`<div>
@@ -13,32 +16,37 @@ import {ProductService} from './products/product.service';
                         </div>
                     </nav>
               </div>
-              <div *ngIf="show">LOADINGGGG</div>
+              <loading-app [showProgress]="show"></loading-app>
+              {{ property }}
               
               <div class='container'>
                     <router-outlet></router-outlet>
-                   
               </div>`
 
 })
 export class AppComponent implements OnInit{
     pageTitle:string = "Acme Product Management";
     show:boolean;
-    constructor(private _http:ProductService){}
+    property:boolean;
+    private _propertySubscription : Subscription;
+    constructor(private _http:ProductService,private _loadService:LoadingService){}
     ngOnInit()
     {
         console.log("THIS START");
-         setInterval(()=>{
-            this.show = this._http.testVar;
-            console.log(this._http.testVar);
-            setTimeout(()=>{
-            this.show = false;
-            },5000);
-         },1000);
+        this._loadService.loadingProperty = false;
 
+        this._propertySubscription =  this._loadService.loadingProperty$.subscribe(p => {
+            this.show = p;
+        });
+      
          
 
     }
+
+    ngOnDestroy(){
+        this._propertySubscription.unsubscribe();
+    }
+
     /*GetEvent(ishoW:boolean){
         this.show = ishoW;
         setTimeout(()=>{

@@ -8,12 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var shared_module_1 = require("../shared/shared.module");
 var router_1 = require("@angular/router");
-var loading_module_1 = require("../loading/loading.module");
 var product_list_component_1 = require("./product-list.component");
 var product_detail_component_1 = require("./product-detail.component");
 var product_filter_pipe_1 = require("./product-filter.pipe");
 var product_guard_service_1 = require("./product-guard.service");
 var product_service_1 = require("./product.service");
+var loading_shared_module_1 = require("../shared/loading-shared.module");
 // Setting of Routes
 var appRoute = [
     { path: 'products', component: product_list_component_1.ProductListComponent },
@@ -28,7 +28,7 @@ ProductModule = __decorate([
     core_1.NgModule({
         imports: [
             shared_module_1.SharedModule,
-            loading_module_1.LoadingModule,
+            loading_shared_module_1.LoadingModule,
             router_1.RouterModule.forChild(appRoute)
         ],
         declarations: [

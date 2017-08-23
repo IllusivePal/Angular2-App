@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var product_service_1 = require("./product.service");
+var loading_service_1 = require("../shared/loading.service");
 var ProductListComponent = (function () {
-    function ProductListComponent(_productService) {
+    function ProductListComponent(_productService, _loadServ) {
         this._productService = _productService;
+        this._loadServ = _loadServ;
         this.pageTitle = 'Product List';
         this.imageWidth = 50;
         this.imageMargin = 2;
@@ -24,12 +26,25 @@ var ProductListComponent = (function () {
         //this.products = this._productService.getProducts();
         this._productService.getProducts()
             .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
+        this._subscription = this._loadServ.loadingProperty$.subscribe(function (p) {
+            _this._loadStat = p;
+        });
+    };
+    ProductListComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
     };
     ProductListComponent.prototype.toggleImage = function () {
         this.showImage = !this.showImage;
     };
     ProductListComponent.prototype.onRatingClicked = function (message) {
         this.pageTitle = 'Product List: ' + message;
+    };
+    ProductListComponent.prototype.onGetClick = function () {
+        var _this = this;
+        this._loadServ.loadingProperty = true;
+        setTimeout(function () {
+            _this._loadServ.loadingProperty = false;
+        }, 2000);
     };
     return ProductListComponent;
 }());
@@ -40,7 +55,7 @@ ProductListComponent = __decorate([
         templateUrl: 'product-list.component.html',
         styleUrls: ['product-list.component.css']
     }),
-    __metadata("design:paramtypes", [product_service_1.ProductService])
+    __metadata("design:paramtypes", [product_service_1.ProductService, loading_service_1.LoadingService])
 ], ProductListComponent);
 exports.ProductListComponent = ProductListComponent;
 //# sourceMappingURL=product-list.component.js.map
