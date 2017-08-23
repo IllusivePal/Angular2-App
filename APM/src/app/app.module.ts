@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule,Route } from '@angular/router';
-import {LoadingModule} from './loading/loading.module';
+import {LoadingModule} from './shared/loading-shared.module';
 import {ProductModule} from  './products/product.module';
 import {CanActivate} from '@angular/router/src';
 
